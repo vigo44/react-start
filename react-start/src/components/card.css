@@ -99,7 +99,7 @@
   width: 16px;
   height: 16px;
   background-size: 16px 16px;
-  background-image: url(../src/assets/svg/star.svg);
+  background-image: url(/svg/star.svg);
 }
 
 .product__discount {
@@ -124,7 +124,7 @@
   height: 40px;
   width: 40px;
   color: white;
-  background-image: url(../src/assets/svg/cart.svg);
+  background-image: url(/svg/cart.svg);
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: left 9px top 10px;
