@@ -1,4 +1,5 @@
 import Header from '../components/header';
+import Search from '../components/search';
 import React from 'react';
 
 class Home extends React.Component {
@@ -6,6 +7,7 @@ class Home extends React.Component {
     return (
       <div>
         <Header />
+        <Search />
       </div>
     );
   }
