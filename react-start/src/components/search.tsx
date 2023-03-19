@@ -6,9 +6,15 @@ type MyState = { searchValue: string };
 class Search extends React.Component<Record<string, never>, MyState> {
   constructor(props: Record<string, never>) {
     super(props);
-    this.state = {
-      searchValue: localStorage.value,
-    };
+    if (localStorage.getItem('value') !== null) {
+      this.state = {
+        searchValue: localStorage.value,
+      };
+    } else {
+      this.state = {
+        searchValue: '',
+      };
+    }
   }
 
   componentWillUnmount() {
