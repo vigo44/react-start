@@ -15,7 +15,6 @@ class Header extends React.Component {
         >
           Home
         </NavLink>
-        <span> </span>
         <NavLink
           to="/about"
           end
