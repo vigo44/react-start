@@ -1,0 +1,9 @@
+.header__link {
+  color: #a34d1b;
+}
+
+.header__link_disaibled {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
