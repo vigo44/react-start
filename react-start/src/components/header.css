@@ -3,18 +3,21 @@
   margin-right: 20px;
   width: auto;
   display: flex;
-  gap: 10px;
+  gap: 1px;
   background-color: bisque;
-  padding: 10px;
+
   font-size: 20px;
 }
 
 .header__link {
   color: #a34d1b;
+  padding: 12px;
 }
 
 .header__link_disaibled {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
+  color: #181f85;
+  background-color: #c9bfad;
 }

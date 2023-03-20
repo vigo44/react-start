@@ -1,16 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './not-found.css';
 
 class NotFound extends React.Component {
   render(): React.ReactNode {
-    return (
-      <div>
-        <div>404 Page not found</div>
-        <div>
-          <Link to="/">Go Home</Link>
-        </div>
-      </div>
-    );
+    return <div className="notFound">404 Page not found</div>;
   }
 }
 export default NotFound;
