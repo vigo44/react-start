@@ -3,12 +3,12 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
-import AboutUs from './pages/about-us';
-import NotFound from './pages/not-found';
+import AboutUs from './pages/about-us/about-us';
+import NotFound from './pages/not-found/not-found';
 
 import cardsData from './assets/data/card-data';
-import Card from './components/card';
-import Cards from './components/cards';
+import Card from './components/card/card';
+import Cards from './components/cards/cards';
 
 describe('App', () => {
   it('render App components', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Card from './card';
+import Card from '../card/card';
 import './cards.css';
-import cardsData from '../assets/data/card-data';
+import cardsData from '../../assets/data/card-data';
 
 class Cards extends React.Component {
   render() {
