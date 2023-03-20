@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
@@ -9,6 +9,7 @@ import NotFound from './pages/not-found/not-found';
 import cardsData from './assets/data/card-data';
 import Card from './components/card/card';
 import Cards from './components/cards/cards';
+import Search from './components/search/search';
 
 describe('App', () => {
   it('render App components', () => {
@@ -68,5 +69,17 @@ describe('Cards tests', function () {
     cardsData.forEach((item) => {
       expect(screen.getByText(item.title)).toBeInTheDocument();
     });
+  });
+});
+
+describe('search input test', function () {
+  it('search input change', () => {
+    //ARRANCE
+    render(<Search />);
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    //ACT
+    fireEvent.change(input, { target: { value: 12345 } });
+    //EXPEXT
+    expect(input.value).toBe('12345');
   });
 });
