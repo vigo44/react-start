@@ -1,5 +1,6 @@
 import { describe, it } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
@@ -81,5 +82,21 @@ describe('search input test', function () {
     fireEvent.change(input, { target: { value: 12345 } });
     //EXPEXT
     expect(input.value).toBe('12345');
+  });
+});
+
+describe('test routing', function () {
+  it('search input change', async () => {
+    //ARRANCE
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    //ACT
+    const user = userEvent.setup();
+    await user.click(screen.getByText(/about us/i));
+    //EXPEXT
+    expect(screen.getByText(`It's all about us`)).toBeInTheDocument();
   });
 });
