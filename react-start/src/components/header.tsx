@@ -5,7 +5,7 @@ import './header.css';
 class Header extends React.Component {
   render() {
     return (
-      <div className="header">
+      <header className="header">
         <NavLink
           to="/"
           end
@@ -24,7 +24,7 @@ class Header extends React.Component {
         >
           About Us
         </NavLink>
-      </div>
+      </header>
     );
   }
 }
