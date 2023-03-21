@@ -86,7 +86,7 @@ describe('search input test', function () {
 });
 
 describe('test routing', function () {
-  it('search input change', async () => {
+  it('test patch /about us', async () => {
     //ARRANCE
     render(
       <BrowserRouter>
@@ -95,8 +95,23 @@ describe('test routing', function () {
     );
     //ACT
     const user = userEvent.setup();
-    await user.click(screen.getByText(/about us/i));
+    await user.click(screen.getAllByText(/about us/i)[1]);
     //EXPEXT
     expect(screen.getByText(`It's all about us`)).toBeInTheDocument();
+  });
+
+  it('test patch /home', async () => {
+    //ARRANCE
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    //ACT
+    const user = userEvent.setup();
+    await user.click(screen.getAllByText(/about us/i)[1]);
+    await user.click(screen.getAllByText(/home/i)[1]);
+    //EXPEXT
+    expect(screen.getByText(`SEARCH`)).toBeInTheDocument();
   });
 });

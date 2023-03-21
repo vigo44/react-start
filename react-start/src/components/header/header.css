@@ -3,21 +3,35 @@
   margin-right: 20px;
   width: auto;
   display: flex;
+  justify-content: space-between;
   gap: 1px;
   background-color: bisque;
-
+  padding-bottom: 11px;
+  padding-top: 12px;
   font-size: 20px;
+}
+
+.header__title {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  color: #181f85;
+  background-color: #c9bfad;
+  padding: 12px;
+}
+
+.header__title_disaibled {
+  display: none;
 }
 
 .header__link {
   color: #a34d1b;
-  padding: 12px;
+  padding: 6px;
+  font-size: 18px;
 }
 
 .header__link_disaibled {
   pointer-events: none;
   cursor: default;
   text-decoration: none;
-  color: #181f85;
-  background-color: #c9bfad;
 }
