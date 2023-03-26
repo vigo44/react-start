@@ -2,12 +2,14 @@ import React from 'react';
 import NameInput from '../inputs/name-input';
 import DateInput from '../inputs/date-input';
 import СontinentSelect from '../inputs/continent-input';
+import SendCheckInput from '../inputs/send-check-input';
 //import './form.css';
 
 class Form extends React.Component {
   nameInput: React.RefObject<HTMLInputElement> = React.createRef();
   dateInput: React.RefObject<HTMLInputElement> = React.createRef();
   continentSelect: React.RefObject<HTMLSelectElement> = React.createRef();
+  sendCheckInput: React.RefObject<HTMLInputElement> = React.createRef();
 
   state = {
     nameValid: true,
@@ -62,6 +64,10 @@ class Form extends React.Component {
         <div className="form__input">
           Choose continent:
           <СontinentSelect refSelect={this.continentSelect} isValid={this.state.continentValid} />
+        </div>
+        <div className="form__input">
+          Send news in email?
+          <SendCheckInput refInput={this.sendCheckInput} />
         </div>
         <input type="submit" value="Submit" />
       </form>
