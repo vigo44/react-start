@@ -4,6 +4,7 @@ import DateInput from '../inputs/date-input';
 import СontinentSelect from '../inputs/continent-input';
 import SendCheckInput from '../inputs/send-check-input';
 import GenderInput from '../inputs/gender-input';
+import AvatarInput from '../inputs/avatar-input';
 //import './form.css';
 
 class Form extends React.Component {
@@ -13,11 +14,13 @@ class Form extends React.Component {
   sendCheckInput: React.RefObject<HTMLInputElement> = React.createRef();
   radioInputMale: React.RefObject<HTMLInputElement> = React.createRef();
   radioInputFemale: React.RefObject<HTMLInputElement> = React.createRef();
+  avatarInput: React.RefObject<HTMLInputElement> = React.createRef();
 
   state = {
     nameValid: true,
     dateValid: true,
     continentValid: true,
+    avatarValid: true,
   };
 
   nameValidation = async () => {
@@ -47,19 +50,29 @@ class Form extends React.Component {
     }
   };
 
+  avatarValidation = async () => {
+    const avatar = this.avatarInput.current?.value;
+    if (avatar) {
+      this.setState({ avatarValid: true });
+    } else {
+      this.setState({ avatarValid: false });
+    }
+  };
+
   handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     await this.nameValidation();
     await this.dateValidation();
     await this.continentValidation();
+    await this.avatarValidation();
   };
 
   render() {
     return (
       <form className="form" onSubmit={this.handleSubmit}>
-        <h2 className="form__title">Enter your details</h2>
+        <h2 className="form__title">Enter user details</h2>
         <div className="form__input">
-          UserName: <NameInput refInput={this.nameInput} isValid={this.state.nameValid} />
+          User name: <NameInput refInput={this.nameInput} isValid={this.state.nameValid} />
         </div>
         <div className="form__input">
           Date of birth: <DateInput refInput={this.dateInput} isValid={this.state.dateValid} />
@@ -76,6 +89,10 @@ class Form extends React.Component {
           Choose gender:
           <GenderInput inputMale={this.radioInputMale} inputFemale={this.radioInputFemale} />
         </fieldset>
+        <div className="form__input">
+          Upload avatar:
+          <AvatarInput refInput={this.avatarInput} isValid={this.state.avatarValid} />
+        </div>
         <input type="submit" value="Submit" />
       </form>
     );
