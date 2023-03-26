@@ -59,12 +59,26 @@ class Form extends React.Component {
     }
   };
 
+  newCard() {
+    // todo
+  }
+
   handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     await this.nameValidation();
     await this.dateValidation();
     await this.continentValidation();
     await this.avatarValidation();
+
+    if (
+      this.state.nameValid ||
+      this.state.dateValid ||
+      this.state.continentValid ||
+      this.state.avatarValid
+    ) {
+      this.newCard();
+      (event.target as HTMLFormElement).reset();
+    }
   };
 
   render() {
