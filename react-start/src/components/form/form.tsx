@@ -1,15 +1,18 @@
 import React from 'react';
 import NameInput from '../inputs/name-input';
 import DateInput from '../inputs/date-input';
+import СontinentSelect from '../inputs/continent-input';
 //import './form.css';
 
 class Form extends React.Component {
   nameInput: React.RefObject<HTMLInputElement> = React.createRef();
   dateInput: React.RefObject<HTMLInputElement> = React.createRef();
+  continentSelect: React.RefObject<HTMLSelectElement> = React.createRef();
 
   state = {
     nameValid: true,
     dateValid: true,
+    continentValid: true,
   };
 
   nameValidation = async () => {
@@ -30,10 +33,20 @@ class Form extends React.Component {
     }
   };
 
+  continentValidation = async () => {
+    const continent = this.continentSelect.current?.value;
+    if (continent && continent !== 'null') {
+      this.setState({ continentValid: true });
+    } else {
+      this.setState({ continentValid: false });
+    }
+  };
+
   handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     await this.nameValidation();
     await this.dateValidation();
+    await this.continentValidation();
   };
 
   render() {
@@ -46,7 +59,10 @@ class Form extends React.Component {
         <div className="form__input">
           Date of birth: <DateInput refInput={this.dateInput} isValid={this.state.dateValid} />
         </div>
-
+        <div className="form__input">
+          Choose continent:
+          <СontinentSelect refSelect={this.continentSelect} isValid={this.state.continentValid} />
+        </div>
         <input type="submit" value="Submit" />
       </form>
     );
