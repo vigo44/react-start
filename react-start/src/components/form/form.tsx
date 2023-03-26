@@ -3,6 +3,7 @@ import NameInput from '../inputs/name-input';
 import DateInput from '../inputs/date-input';
 import СontinentSelect from '../inputs/continent-input';
 import SendCheckInput from '../inputs/send-check-input';
+import GenderInput from '../inputs/gender-input';
 //import './form.css';
 
 class Form extends React.Component {
@@ -10,6 +11,8 @@ class Form extends React.Component {
   dateInput: React.RefObject<HTMLInputElement> = React.createRef();
   continentSelect: React.RefObject<HTMLSelectElement> = React.createRef();
   sendCheckInput: React.RefObject<HTMLInputElement> = React.createRef();
+  radioInputMale: React.RefObject<HTMLInputElement> = React.createRef();
+  radioInputFemale: React.RefObject<HTMLInputElement> = React.createRef();
 
   state = {
     nameValid: true,
@@ -69,6 +72,10 @@ class Form extends React.Component {
           Send news in email?
           <SendCheckInput refInput={this.sendCheckInput} />
         </div>
+        <fieldset className="form__input">
+          Choose gender:
+          <GenderInput inputMale={this.radioInputMale} inputFemale={this.radioInputFemale} />
+        </fieldset>
         <input type="submit" value="Submit" />
       </form>
     );
