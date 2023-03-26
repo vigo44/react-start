@@ -26,6 +26,15 @@ class Header extends React.Component {
             About Us
           </NavLink>
           <NavLink
+            to="/form"
+            end
+            className={({ isActive }) =>
+              isActive ? 'header__title ' : 'header__title header__title_disaibled'
+            }
+          >
+            Form
+          </NavLink>
+          <NavLink
             to="/404"
             end
             className={({ isActive }) =>
@@ -44,6 +53,15 @@ class Header extends React.Component {
             }
           >
             Home
+          </NavLink>
+          <NavLink
+            to="/form"
+            end
+            className={({ isActive }) =>
+              isActive ? 'header__link header__link_disaibled' : 'header__link'
+            }
+          >
+            Form
           </NavLink>
           <NavLink
             to="/about"
