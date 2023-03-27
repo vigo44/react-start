@@ -5,9 +5,22 @@ import СontinentSelect from '../inputs/continent-input';
 import SendCheckInput from '../inputs/send-check-input';
 import GenderInput from '../inputs/gender-input';
 import AvatarInput from '../inputs/avatar-input';
-//import './form.css';
+import './form.css';
 
-class Form extends React.Component {
+interface userCard {
+  user: string;
+  data: string;
+  continent: string;
+  send: boolean;
+  gender: string;
+  avatar: string | false;
+}
+
+interface Props {
+  updateCards: (card: userCard) => void;
+}
+
+class Form extends React.Component<Props> {
   nameInput: React.RefObject<HTMLInputElement> = React.createRef();
   dateInput: React.RefObject<HTMLInputElement> = React.createRef();
   continentSelect: React.RefObject<HTMLSelectElement> = React.createRef();
@@ -60,7 +73,20 @@ class Form extends React.Component {
   };
 
   newCard() {
-    // todo
+    const card = {
+      user: this.nameInput.current?.value as string,
+      data: this.dateInput.current?.value as string,
+      continent: this.continentSelect.current?.value as string,
+      send: this.sendCheckInput.current?.checked as boolean,
+      gender: this.radioInputMale.current?.checked
+        ? (this.radioInputMale.current?.value as string)
+        : (this.radioInputFemale.current?.value as string),
+      avatar:
+        this.avatarInput.current !== null &&
+        this.avatarInput.current.files !== null &&
+        URL.createObjectURL(this.avatarInput.current.files[0]),
+    };
+    this.props.updateCards(card);
   }
 
   handleSubmit = async (event: React.SyntheticEvent) => {

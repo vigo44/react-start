@@ -2,9 +2,11 @@
   margin-left: 20px;
   margin-right: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   background-color: rgb(250, 243, 235);
   padding: 20px;
   font-size: 20px;
+  gap: 30px;
+  font-size: 16px;
 }
