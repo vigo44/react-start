@@ -39,6 +39,7 @@ class Form extends React.Component<Props> {
     continentValid: true,
     avatarValid: true,
     acceptValid: true,
+    genderValid: true,
   };
 
   nameValidation = async () => {
@@ -65,6 +66,16 @@ class Form extends React.Component<Props> {
       this.setState({ continentValid: true });
     } else {
       this.setState({ continentValid: false });
+    }
+  };
+
+  genderValidation = async () => {
+    const male = this.radioInputMale.current?.checked;
+    const female = this.radioInputFemale.current?.checked;
+    if (male || female) {
+      this.setState({ genderValid: true });
+    } else {
+      this.setState({ genderValid: false });
     }
   };
 
@@ -108,6 +119,7 @@ class Form extends React.Component<Props> {
     await this.nameValidation();
     await this.dateValidation();
     await this.continentValidation();
+    await this.genderValidation();
     await this.avatarValidation();
     await this.acceptValidation();
 
@@ -115,6 +127,7 @@ class Form extends React.Component<Props> {
       this.state.nameValid &&
       this.state.dateValid &&
       this.state.continentValid &&
+      this.state.genderValid &&
       this.state.avatarValid &&
       this.state.acceptValid
     ) {
@@ -142,7 +155,11 @@ class Form extends React.Component<Props> {
         </div>
         <fieldset className="form__input">
           Choose gender:
-          <GenderInput inputMale={this.radioInputMale} inputFemale={this.radioInputFemale} />
+          <GenderInput
+            inputMale={this.radioInputMale}
+            inputFemale={this.radioInputFemale}
+            isValid={this.state.genderValid}
+          />
         </fieldset>
         <div className="form__input">
           Upload avatar:

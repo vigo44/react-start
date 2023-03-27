@@ -4,6 +4,7 @@ import './inputs.css';
 type Props = {
   inputMale: React.RefObject<HTMLInputElement>;
   inputFemale: React.RefObject<HTMLInputElement>;
+  isValid: boolean;
 };
 
 export default class NameInput extends React.Component<Props> {
@@ -16,18 +17,18 @@ export default class NameInput extends React.Component<Props> {
       <div className="input__genders">
         <label className="input__gender">
           <span>Male</span>
-          <input
-            defaultChecked
-            ref={this.props.inputMale}
-            name="gender"
-            value="Male"
-            type="radio"
-          />
+          <input ref={this.props.inputMale} name="gender" value="Male" type="radio" />
         </label>
         <label className="input__gender">
           <span>Female</span>
           <input value="Female" ref={this.props.inputFemale} name="gender" type="radio" />
         </label>
+        <span
+          className="input__promptText"
+          style={{ visibility: !this.props.isValid ? 'visible' : 'hidden' }}
+        >
+          *Please choose a gender!
+        </span>
       </div>
     );
   }
