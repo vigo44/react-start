@@ -18,6 +18,7 @@ interface userCard {
 
 interface Props {
   updateCards: (card: userCard) => void;
+  form: React.RefObject<HTMLFormElement>;
 }
 
 class Form extends React.Component<Props> {
@@ -104,13 +105,12 @@ class Form extends React.Component<Props> {
       this.state.avatarValid
     ) {
       this.newCard();
-      this.formRef.current?.reset();
     }
   };
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
+      <form className="form" onSubmit={this.handleSubmit} ref={this.props.form}>
         <h2 className="form__title">Enter user details</h2>
         <div className="form__input">
           User name: <NameInput refInput={this.nameInput} isValid={this.state.nameValid} />
