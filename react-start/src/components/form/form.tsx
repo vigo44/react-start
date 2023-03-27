@@ -5,6 +5,7 @@ import СontinentSelect from '../inputs/continent-input';
 import SendCheckInput from '../inputs/send-check-input';
 import GenderInput from '../inputs/gender-input';
 import AvatarInput from '../inputs/avatar-input';
+import AcceptCheckInput from '../inputs/accept-check-input';
 import './form.css';
 
 interface userCard {
@@ -29,6 +30,7 @@ class Form extends React.Component<Props> {
   radioInputMale: React.RefObject<HTMLInputElement> = React.createRef();
   radioInputFemale: React.RefObject<HTMLInputElement> = React.createRef();
   avatarInput: React.RefObject<HTMLInputElement> = React.createRef();
+  acceptCheckInput: React.RefObject<HTMLInputElement> = React.createRef();
   formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
   state = {
@@ -36,6 +38,7 @@ class Form extends React.Component<Props> {
     dateValid: true,
     continentValid: true,
     avatarValid: true,
+    acceptValid: true,
   };
 
   nameValidation = async () => {
@@ -74,6 +77,15 @@ class Form extends React.Component<Props> {
     }
   };
 
+  acceptValidation = async () => {
+    const accept = this.acceptCheckInput.current?.checked;
+    if (accept) {
+      this.setState({ acceptValid: true });
+    } else {
+      this.setState({ acceptValid: false });
+    }
+  };
+
   newCard() {
     const card = {
       user: this.nameInput.current?.value as string,
@@ -97,12 +109,14 @@ class Form extends React.Component<Props> {
     await this.dateValidation();
     await this.continentValidation();
     await this.avatarValidation();
+    await this.acceptValidation();
 
     if (
       this.state.nameValid &&
       this.state.dateValid &&
       this.state.continentValid &&
-      this.state.avatarValid
+      this.state.avatarValid &&
+      this.state.acceptValid
     ) {
       this.newCard();
     }
@@ -133,6 +147,10 @@ class Form extends React.Component<Props> {
         <div className="form__input">
           Upload avatar:
           <AvatarInput refInput={this.avatarInput} isValid={this.state.avatarValid} />
+        </div>
+        <div className="form__input">
+          Are you sure?
+          <AcceptCheckInput refInput={this.acceptCheckInput} isValid={this.state.acceptValid} />
         </div>
         <input type="submit" value="Submit" />
       </form>
