@@ -28,6 +28,7 @@ class Form extends React.Component<Props> {
   radioInputMale: React.RefObject<HTMLInputElement> = React.createRef();
   radioInputFemale: React.RefObject<HTMLInputElement> = React.createRef();
   avatarInput: React.RefObject<HTMLInputElement> = React.createRef();
+  formRef: React.RefObject<HTMLFormElement> = React.createRef();
 
   state = {
     nameValid: true,
@@ -103,13 +104,13 @@ class Form extends React.Component<Props> {
       this.state.avatarValid
     ) {
       this.newCard();
-      (event.target as HTMLFormElement).reset();
+      this.formRef.current?.reset();
     }
   };
 
   render() {
     return (
-      <form className="form" onSubmit={this.handleSubmit}>
+      <form className="form" onSubmit={this.handleSubmit} ref={this.formRef}>
         <h2 className="form__title">Enter user details</h2>
         <div className="form__input">
           User name: <NameInput refInput={this.nameInput} isValid={this.state.nameValid} />
