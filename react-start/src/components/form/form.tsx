@@ -99,9 +99,9 @@ class Form extends React.Component<Props> {
     await this.avatarValidation();
 
     if (
-      this.state.nameValid ||
-      this.state.dateValid ||
-      this.state.continentValid ||
+      this.state.nameValid &&
+      this.state.dateValid &&
+      this.state.continentValid &&
       this.state.avatarValid
     ) {
       this.newCard();
