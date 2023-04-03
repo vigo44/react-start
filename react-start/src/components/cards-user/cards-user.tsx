@@ -8,11 +8,11 @@ interface Props {
 
 interface Card {
   user: string;
-  data: string;
+  date: string;
   continent: string;
   send: boolean;
   gender: string;
-  avatar: string | false;
+  avatar: string;
 }
 
 export default class CardsUser extends React.Component<Props> {
@@ -28,7 +28,7 @@ export default class CardsUser extends React.Component<Props> {
             <CardUser
               key={key}
               user={item.user}
-              data={item.data}
+              date={item.date}
               continent={item.continent}
               send={item.send}
               gender={item.gender}

@@ -1,27 +1,25 @@
-import React from 'react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import './inputs.css';
+import { FormInputs } from '../form/form';
 
 type Props = {
-  refInput: React.RefObject<HTMLInputElement>;
-  isValid: boolean;
+  register: UseFormRegister<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
-export default class AcceptCheckInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label>
-        <input className="input__accept-check" type="checkbox" ref={this.props.refInput} />
-        <span
-          className="input__promptText"
-          style={{ visibility: !this.props.isValid ? 'visible' : 'hidden' }}
-        >
-          *Please accept!
-        </span>
-      </label>
-    );
-  }
+export default function AcceptCheckInput(props: Props) {
+  return (
+    <label>
+      <input
+        className="input__accept-check"
+        type="checkbox"
+        {...props.register('accept', {
+          required: '*Please upload a photo!',
+        })}
+      />
+      {props.errors.accept && (
+        <span className="input__promptText">{props.errors.accept.message}</span>
+      )}
+    </label>
+  );
 }

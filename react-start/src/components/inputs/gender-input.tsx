@@ -1,35 +1,40 @@
-import React from 'react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import './inputs.css';
+import { FormInputs } from '../form/form';
 
 type Props = {
-  inputMale: React.RefObject<HTMLInputElement>;
-  inputFemale: React.RefObject<HTMLInputElement>;
-  isValid: boolean;
+  register: UseFormRegister<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
-export default class NameInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="input__genders">
-        <label className="input__gender">
-          <span>Male</span>
-          <input ref={this.props.inputMale} name="gender" value="Male" type="radio" />
-        </label>
-        <label className="input__gender">
-          <span>Female</span>
-          <input value="Female" ref={this.props.inputFemale} name="gender" type="radio" />
-        </label>
-        <span
-          className="input__promptText"
-          style={{ visibility: !this.props.isValid ? 'visible' : 'hidden' }}
-        >
-          *Please choose a gender!
-        </span>
-      </div>
-    );
-  }
+export default function GenderInput(props: Props) {
+  return (
+    <div className="input__genders">
+      <label className="input__gender">
+        <span>Male</span>
+        <input
+          {...props.register('gender', {
+            required: '*Please choose a gender!',
+          })}
+          name="gender"
+          value="Male"
+          type="radio"
+        />
+      </label>
+      <label className="input__gender">
+        <span>Female</span>
+        <input
+          value="Female"
+          {...props.register('gender', {
+            required: '*Please choose a gender!',
+          })}
+          name="gender"
+          type="radio"
+        />
+      </label>
+      {props.errors.gender && (
+        <span className="input__promptText">{props.errors.gender.message}</span>
+      )}
+    </div>
+  );
 }

@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import FormPage from '../form-page/form-page';
@@ -10,10 +10,11 @@ describe('App', () => {
     render(<FormPage />);
     //ACT
     const user = userEvent.setup();
-    await user.click(screen.getAllByText(/submit/i)[0]);
+    await user.click(screen.getByRole('button', { name: /submit/i }));
     //EXPEXT
     expect(screen.getByText(`*Please enter name!(minimum 4 characters)`)).toBeInTheDocument();
     expect(screen.getByText(`*Please choose a continent!`)).toBeInTheDocument();
-    expect(screen.getByText(`*Please upload a photo!`)).toBeInTheDocument();
+    const view = screen.getByText(/upload avatar:/i);
+    expect(within(view).getByText(/\*please upload a photo!/i)).toBeInTheDocument();
   });
 });

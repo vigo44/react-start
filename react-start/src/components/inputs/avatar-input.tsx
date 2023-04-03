@@ -1,27 +1,26 @@
-import React from 'react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import './inputs.css';
+import { FormInputs } from '../form/form';
 
 type Props = {
-  refInput: React.RefObject<HTMLInputElement>;
-  isValid: boolean;
+  register: UseFormRegister<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
-export default class AvatarInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label>
-        <input className="input__avatar" type="file" ref={this.props.refInput} accept="image/*" />
-        <span
-          className="input__promptText"
-          style={{ visibility: !this.props.isValid ? 'visible' : 'hidden' }}
-        >
-          *Please upload a photo!
-        </span>
-      </label>
-    );
-  }
+export default function AvatarInput(props: Props) {
+  return (
+    <label>
+      <input
+        className="input__avatar"
+        type="file"
+        {...props.register('avatar', {
+          required: '*Please upload a photo!',
+        })}
+        accept="image/*"
+      />
+      {props.errors.avatar && (
+        <span className="input__promptText">{props.errors.avatar.message}</span>
+      )}
+    </label>
+  );
 }

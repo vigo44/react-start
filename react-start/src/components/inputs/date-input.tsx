@@ -1,27 +1,23 @@
-import React from 'react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import './inputs.css';
+import { FormInputs } from '../form/form';
 
 type Props = {
-  refInput: React.RefObject<HTMLInputElement>;
-  isValid: boolean;
+  register: UseFormRegister<FormInputs>;
+  errors: FieldErrors<FormInputs>;
 };
 
-export default class DateInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label>
-        <input className="input__date" type="date" ref={this.props.refInput} />
-        <span
-          className="input__promptText"
-          style={{ visibility: !this.props.isValid ? 'visible' : 'hidden' }}
-        >
-          *Please enter date!
-        </span>
-      </label>
-    );
-  }
+export default function DateInput(props: Props) {
+  return (
+    <label>
+      <input
+        className="input__date"
+        type="date"
+        {...props.register('date', {
+          required: '*Please enter a date!',
+        })}
+      />
+      {props.errors.date && <span className="input__promptText">{props.errors.date.message}</span>}
+    </label>
+  );
 }

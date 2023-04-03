@@ -10,7 +10,7 @@ describe('App', () => {
       <CardUser
         key={1}
         user={'Obama'}
-        data={'2023-04-02'}
+        date={'2023-04-02'}
         continent={'Africa'}
         send={true}
         gender={'Female'}
@@ -35,7 +35,7 @@ describe('App', () => {
       <CardUser
         key={1}
         user={'Obama'}
-        data={'2023-04-02'}
+        date={'2023-04-02'}
         continent={'Africa'}
         send={false}
         gender={'Female'}

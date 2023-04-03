@@ -10,11 +10,12 @@ interface Props {
 
 interface userCard {
   user: string;
-  data: string;
+  date: string;
   continent: string;
   send: boolean;
   gender: string;
-  avatar: string | false;
+  avatar: string;
+  accept: boolean;
 }
 
 interface FormState {
@@ -36,13 +37,12 @@ class FormPage extends React.Component<Props, FormState> {
 
   closeModal = () => {
     this.setState({ modalOpen: false });
-    this.formRef.current?.reset();
   };
 
   render(): React.ReactNode {
     return (
       <div className="wrapperForm">
-        <Form updateCards={this.updateCards} form={this.formRef} />
+        <Form updateCards={this.updateCards} />
         <CardsUser cards={this.state.cards} />
         <ModalWindows isOpen={this.state.modalOpen} close={this.closeModal} />
       </div>

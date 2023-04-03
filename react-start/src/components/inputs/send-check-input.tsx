@@ -1,20 +1,21 @@
-import React from 'react';
+import { UseFormRegister } from 'react-hook-form';
 import './inputs.css';
+import { FormInputs } from '../form/form';
 
 type Props = {
-  refInput: React.RefObject<HTMLInputElement>;
+  register: UseFormRegister<FormInputs>;
 };
 
-export default class SendCheckInput extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <label>
-        <input className="input__send-check" type="checkbox" ref={this.props.refInput} />
-      </label>
-    );
-  }
+export default function SendCheckInput(props: Props) {
+  return (
+    <label>
+      <input
+        className="input__send-check"
+        type="checkbox"
+        {...props.register('send', {
+          required: true,
+        })}
+      />
+    </label>
+  );
 }
