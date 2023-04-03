@@ -4,7 +4,9 @@ import './search.css';
 function Search() {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('value') || '');
   useEffect(() => {
-    localStorage.value = searchValue;
+    return () => {
+      localStorage.value = searchValue;
+    };
   });
 
   return (
