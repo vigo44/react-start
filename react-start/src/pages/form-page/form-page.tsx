@@ -17,19 +17,22 @@ interface UserCard {
 function FormPage() {
   const [cards, setCards] = useState([] as UserCard[]);
   const [modalOpen, setModal] = useState(false);
+  const [clearForm, setClearForm] = useState(false);
 
   const updateCards = (card: UserCard) => {
     setCards([...cards, card]);
     setModal(true);
+    setClearForm(false);
   };
 
   const closeModal = () => {
     setModal(false);
+    setClearForm(true);
   };
 
   return (
     <div className="wrapperForm">
-      <Form updateCards={updateCards} />
+      <Form updateCards={updateCards} clearForm={clearForm} />
       <CardsUser cards={cards} />
       <ModalWindows isOpen={modalOpen} close={closeModal} />
     </div>

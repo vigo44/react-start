@@ -7,6 +7,7 @@ import AvatarInput from '../inputs/avatar-input';
 import AcceptCheckInput from '../inputs/accept-check-input';
 import { useForm } from 'react-hook-form';
 import './form.css';
+import { useEffect } from 'react';
 
 export interface FormInputs {
   user: string;
@@ -30,6 +31,7 @@ export interface UserCard {
 
 interface Props {
   updateCards: (card: UserCard) => void;
+  clearForm: boolean;
 }
 
 function Form(props: Props) {
@@ -54,8 +56,13 @@ function Form(props: Props) {
       accept: true,
     };
     props.updateCards(card);
-    reset();
   }
+
+  useEffect(() => {
+    if (props.clearForm) {
+      reset();
+    }
+  }, [props.clearForm, reset]);
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
