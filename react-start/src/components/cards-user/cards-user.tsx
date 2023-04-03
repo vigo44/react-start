@@ -1,4 +1,3 @@
-import React from 'react';
 import CardUser from './card-user';
 import './cards-user.css';
 
@@ -15,28 +14,22 @@ interface Card {
   avatar: string;
 }
 
-export default class CardsUser extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="cards-user">
-        {this.props.cards.map((item, key) => {
-          return (
-            <CardUser
-              key={key}
-              user={item.user}
-              date={item.date}
-              continent={item.continent}
-              send={item.send}
-              gender={item.gender}
-              avatar={item.avatar}
-            />
-          );
-        })}
-      </div>
-    );
-  }
+export default function CardsUser(props: Props) {
+  return (
+    <div className="cards-user">
+      {props.cards.map((item, key) => {
+        return (
+          <CardUser
+            key={key}
+            user={item.user}
+            date={item.date}
+            continent={item.continent}
+            send={item.send}
+            gender={item.gender}
+            avatar={item.avatar}
+          />
+        );
+      })}
+    </div>
+  );
 }
