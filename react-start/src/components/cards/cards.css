@@ -1,0 +1,13 @@
+.wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: auto;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding: 10px 10px 10px 10px;
+  gap: 20px;
+}
