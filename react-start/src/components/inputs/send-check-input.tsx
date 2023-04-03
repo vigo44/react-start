@@ -9,13 +9,7 @@ type Props = {
 export default function SendCheckInput(props: Props) {
   return (
     <label>
-      <input
-        className="input__send-check"
-        type="checkbox"
-        {...props.register('send', {
-          required: true,
-        })}
-      />
+      <input className="input__send-check" type="checkbox" {...props.register('send')} />
     </label>
   );
 }
