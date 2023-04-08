@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './card.css';
 
-interface interfaceCharacter {
+export interface interfaceCharacter {
   id: number;
   name: string;
   status: string;
+  species: string;
   type: string;
   gender: string;
   origin: {
@@ -20,26 +21,31 @@ interface interfaceCharacter {
 }
 
 function Card(props: interfaceCharacter) {
+  const charAlive =
+    props.status == 'Alive'
+      ? 'character__status_alive'
+      : props.status == 'Dead'
+      ? 'character__status_dead'
+      : '';
+  const charStatusClasses = ['character__status', charAlive];
+  const [details, setDetails] = useState(false);
   return (
-    <div className="character">
+    <div
+      className="character"
+      onClick={() => {
+        setDetails((prev) => !prev);
+      }}
+    >
       <div className="character__wrapper-title">
         <div className="character__title">{props.name}</div>
         <div className="character__wrapper-status">
-          <div
-            className={
-              'character__status ' +
-              (props.status == 'Alive'
-                ? 'character__status_alive'
-                : props.status == 'Dead'
-                ? 'character__status_dead'
-                : '')
-            }
-          />
+          <div className={charStatusClasses.join(' ')} />
         </div>
       </div>
       <div className="character__wrapper-img">
         <img className="character__img" src={props.image} />
       </div>
+      {details && <div>{props.species}</div>}
     </div>
   );
 }
