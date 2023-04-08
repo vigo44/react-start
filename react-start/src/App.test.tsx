@@ -50,16 +50,10 @@ describe('NotFound', () => {
 describe('Cards tests', function () {
   it('should render Card', () => {
     //ARRANCE
-    render(<Card {...cardsData[0]} />);
+    render(<Card {...cardsData.results[0]} />);
     //ACT
     //EXPEXT
-    expect(screen.getByText(cardsData[0].title)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].category)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].brand)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].rating)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].discountPercentage)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].price)).toBeInTheDocument();
-    expect(screen.getByText(cardsData[0].stock)).toBeInTheDocument();
+    expect(screen.getByText(cardsData.results[0].name)).toBeInTheDocument();
   });
 
   it('should render Cards', () => {
@@ -67,8 +61,8 @@ describe('Cards tests', function () {
     render(<Cards />);
     //ACT
     //EXPEXT
-    cardsData.forEach((item) => {
-      expect(screen.getByText(item.title)).toBeInTheDocument();
+    cardsData.results.forEach((item) => {
+      expect(screen.getByText(item.name)).toBeInTheDocument();
     });
   });
 });

@@ -5,8 +5,8 @@ import cardsData from '../../assets/data/card-data';
 function Cards() {
   return (
     <div className="wrapper">
-      <div className="products">
-        {cardsData.map((item) => {
+      <div className="characters">
+        {cardsData.results.map((item) => {
           return <Card key={item.id} {...item} />;
         })}
       </div>

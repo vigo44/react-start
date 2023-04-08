@@ -1,42 +1,44 @@
+import { useState } from 'react';
 import './card.css';
 
-interface interfaceProduct {
+interface interfaceCharacter {
   id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
+  name: string;
+  status: string;
+  type: string;
+  gender: string;
+  origin: {
+    name?: string;
+    url?: string;
+  };
+  location: {
+    name?: string;
+    url?: string;
+  };
+  image: string;
+  episode: string[];
 }
 
-function Card(props: interfaceProduct) {
+function Card(props: interfaceCharacter) {
   return (
-    <div className="product">
-      <div className="product__wrapper-title">
-        <div className="product__title">{props.title}</div>
-        <div className="product__wrapper-category">
-          <div className="product__category">{props.category}</div>
-          <div className="product__brand">{props.brand}</div>
+    <div className="character">
+      <div className="character__wrapper-title">
+        <div className="character__title">{props.name}</div>
+        <div className="character__wrapper-status">
+          <div
+            className={
+              'character__status ' +
+              (props.status == 'Alive'
+                ? 'character__status_alive'
+                : props.status == 'Dead'
+                ? 'character__status_dead'
+                : '')
+            }
+          />
         </div>
       </div>
-      <div className="product__wrapper-img">
-        <img className="product__img" src={props.thumbnail} />
-      </div>
-      <div className="product__wrapper-rating">
-        <div className="product__rating">{props.rating}</div>
-        <div className="product__discount">{props.discountPercentage}</div>
-      </div>
-      <div className="product__wrapper-price">
-        <div className="product__price">{props.price}</div>
-        <div className="product__add"></div>
-      </div>
-      <div className="product__wrapper-stock">
-        <div className="product__stock">{props.stock}</div>
+      <div className="character__wrapper-img">
+        <img className="character__img" src={props.image} />
       </div>
     </div>
   );
