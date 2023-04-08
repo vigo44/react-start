@@ -4,10 +4,46 @@
   width: auto;
 }
 
+.wrapper-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
 .characters {
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
   padding: 10px 10px 10px 10px;
   gap: 20px;
+}
+
+.button {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 2px 10px 2px 10px;
+  border: 0px;
+  cursor: pointer;
+  color: #ffffff;
+  background: #1cb9fc;
+}
+
+.button:hover {
+  background: #2f92d0;
+}
+
+.button_inactive {
+  background: #8f8f8f;
+  cursor: auto;
+}
+
+.button_inactive:hover {
+  background: #8f8f8f;
 }
