@@ -17,10 +17,13 @@ export interface interfaceCharacter {
   };
   image: string;
   episode: string[];
+}
+
+export interface CardProps extends interfaceCharacter {
   onDescription: (id: string) => void;
 }
 
-function Card(props: interfaceCharacter) {
+function Card(props: CardProps) {
   const charAlive =
     props.status == 'Alive'
       ? 'character__status_alive'

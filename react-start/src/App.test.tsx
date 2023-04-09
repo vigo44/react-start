@@ -50,7 +50,7 @@ describe('NotFound', () => {
 describe('Cards tests', function () {
   it('should render Card', () => {
     //ARRANCE
-    render(<Card {...cardsData.results[0]} />);
+    render(<Card {...cardsData.results[0]} onDescription={() => {}} />);
     //ACT
     //EXPEXT
     expect(screen.getByText(cardsData.results[0].name)).toBeInTheDocument();
@@ -58,7 +58,16 @@ describe('Cards tests', function () {
 
   it('should render Cards', () => {
     //ARRANCE
-    render(<Cards />);
+    render(
+      <Cards
+        cardsData={cardsData.results}
+        loading={false}
+        error={''}
+        prevPage={''}
+        nextPage={''}
+        setPath={() => {}}
+      />
+    );
     //ACT
     //EXPEXT
     cardsData.results.forEach((item) => {
@@ -70,7 +79,7 @@ describe('Cards tests', function () {
 describe('search input test', function () {
   it('search input change', () => {
     //ARRANCE
-    render(<Search />);
+    render(<Search onSearch={() => {}} />);
     const input = screen.getByRole('textbox') as HTMLInputElement;
     //ACT
     fireEvent.change(input, { target: { value: 12345 } });
