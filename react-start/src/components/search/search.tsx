@@ -1,7 +1,11 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import './search.css';
 
-function Search() {
+interface SearchProps {
+  onSearch: (val: string) => void;
+}
+
+function Search(props: SearchProps) {
   const [searchValue, setSearchValue] = useState(localStorage.getItem('value') || '');
   const valueRef = useRef<string>(searchValue);
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,8 +22,16 @@ function Search() {
   return (
     <div className="search">
       <form>
-        <input value={searchValue} onChange={handlerInput} />
-        <button type="button">SEARCH</button>
+        <input value={searchValue} onChange={handlerInput} placeholder="Please enter name" />
+        <button
+          type="button"
+          onClick={props.onSearch.bind(
+            null,
+            `https://rickandmortyapi.com/api/character/?name=${searchValue}`
+          )}
+        >
+          SEARCH
+        </button>
       </form>
     </div>
   );

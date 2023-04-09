@@ -1,11 +1,11 @@
 import { interfaceCharacter } from '../components/card/card';
 import { useEffect, useState } from 'react';
 
-export function useCards() {
+export function useCards(link: string) {
   const [cardsData, setCardsData] = useState<interfaceCharacter[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [path, setPatch] = useState('https://rickandmortyapi.com/api/character');
+  const [path, setPath] = useState(link);
   const [prevPage, setPrevPage] = useState(null);
   const [nextPage, setNextPage] = useState(null);
 
@@ -20,7 +20,14 @@ export function useCards() {
         setPrevPage(jsonData.info.prev);
         setNextPage(jsonData.info.next);
       } else {
-        const errorFetch = new Error(`Network Error: response ${response.status}`);
+        let textError = '';
+        if (response.body) {
+          const jsonData = await response.json();
+          textError = `OOPS! ${jsonData.error}`;
+        } else {
+          textError = `Network Error: response ${response.status}`;
+        }
+        const errorFetch = new Error(textError);
         throw errorFetch;
       }
       setLoading(false);
@@ -33,5 +40,5 @@ export function useCards() {
   useEffect(() => {
     fetchCards(path);
   }, [path]);
-  return { cardsData, loading, error, prevPage, nextPage, setPatch };
+  return { cardsData, loading, error, prevPage, nextPage, setPath };
 }
