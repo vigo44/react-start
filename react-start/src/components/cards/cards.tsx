@@ -3,9 +3,13 @@ import { useCards } from '../../hooks/cardsHook';
 import Card from '../card/card';
 import './cards.css';
 import ErrorMessage from '../error-message/error-mesage';
+import Modal from '../modal/modal';
+import CardDescription from '../card-description/card-discription';
+import { useState } from 'react';
 
 function Cards() {
   const { cardsData, loading, error, prevPage, nextPage, setPatch } = useCards();
+  const [modal, setModal] = useState(true);
 
   return (
     <>
@@ -42,6 +46,15 @@ function Cards() {
           </div>
         )}
       </div>
+      {modal && (
+        <Modal
+          onExit={() => {
+            setModal(false);
+          }}
+        >
+          <CardDescription />
+        </Modal>
+      )}
     </>
   );
 }
