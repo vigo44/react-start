@@ -9,7 +9,13 @@ import { useState } from 'react';
 
 function Cards() {
   const { cardsData, loading, error, prevPage, nextPage, setPatch } = useCards();
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [linkDescription, setLinkDescription] = useState('');
+
+  function handlerOnDescription(id: string) {
+    setModal(true);
+    setLinkDescription(`https://rickandmortyapi.com/api/character/${id}`);
+  }
 
   return (
     <>
@@ -41,7 +47,7 @@ function Cards() {
         {!error && !loading && (
           <div className="characters">
             {cardsData.map((item) => {
-              return <Card key={item.id} {...item} />;
+              return <Card key={item.id} {...item} onDescription={handlerOnDescription} />;
             })}
           </div>
         )}
@@ -52,7 +58,7 @@ function Cards() {
             setModal(false);
           }}
         >
-          <CardDescription />
+          <CardDescription link={linkDescription} />
         </Modal>
       )}
     </>

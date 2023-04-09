@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './card.css';
 
 export interface interfaceCharacter {
@@ -18,6 +17,7 @@ export interface interfaceCharacter {
   };
   image: string;
   episode: string[];
+  onDescription: (id: string) => void;
 }
 
 function Card(props: interfaceCharacter) {
@@ -28,14 +28,9 @@ function Card(props: interfaceCharacter) {
       ? 'character__status_dead'
       : '';
   const charStatusClasses = ['character__status', charAlive];
-  const [details, setDetails] = useState(false);
+
   return (
-    <div
-      className="character"
-      onClick={() => {
-        setDetails((prev) => !prev);
-      }}
-    >
+    <div className="character" onClick={props.onDescription.bind(null, `${props.id}`)}>
       <div className="character__wrapper-title">
         <div className="character__title">{props.name}</div>
         <div className="character__wrapper-status">
@@ -45,7 +40,6 @@ function Card(props: interfaceCharacter) {
       <div className="character__wrapper-img">
         <img className="character__img" src={props.image} />
       </div>
-      {details && <div>{props.species}</div>}
     </div>
   );
 }
