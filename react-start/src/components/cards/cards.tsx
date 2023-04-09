@@ -2,6 +2,7 @@ import Loader from '../loader/loader';
 import { useCards } from '../../hooks/cardsHook';
 import Card from '../card/card';
 import './cards.css';
+import ErrorMessage from '../error-message/error-mesage';
 
 function Cards() {
   const { cardsData, loading, error, prevPage, nextPage, setPatch } = useCards();
@@ -10,7 +11,7 @@ function Cards() {
     <>
       <div className="wrapper-button">
         <input
-          className={'button ' + (prevPage == null || loading ? 'button_inactive' : '')}
+          className={'button ' + (prevPage == null || loading || error ? 'button_inactive' : '')}
           type="button"
           value={'<<'}
           onClick={() => {
@@ -20,7 +21,7 @@ function Cards() {
           }}
         />
         <input
-          className={'button ' + (nextPage == null || loading ? 'button_inactive' : '')}
+          className={'button ' + (nextPage == null || loading || error ? 'button_inactive' : '')}
           type="button"
           value={'>>'}
           onClick={() => {
@@ -32,8 +33,8 @@ function Cards() {
       </div>
       <div className="wrapper">
         {loading && <Loader />}
-        {error && <p>{error}</p>}
-        {!loading && (
+        {error && <ErrorMessage error={error} />}
+        {!error && !loading && (
           <div className="characters">
             {cardsData.map((item) => {
               return <Card key={item.id} {...item} />;
