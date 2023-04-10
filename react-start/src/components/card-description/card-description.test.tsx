@@ -20,9 +20,7 @@ describe('testing card-description', () => {
     render(<CardDescription link="https://rickandmortyapi.com/api/character/1" />);
     //ACT
     //EXPEXT
-    setTimeout(() => {
-      expect(screen.getByText(/rick sanchez/i)).toBeInTheDocument();
-      expect(screen.getByText(/earth \(c\-137\)/i)).toBeInTheDocument();
-    }, 500);
+    await screen.findByText(/rick sanchez/i);
+    expect(screen.getByText(/earth \(c\-137\)/i)).toBeInTheDocument();
   });
 });

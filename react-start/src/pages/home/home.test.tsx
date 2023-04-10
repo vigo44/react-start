@@ -15,15 +15,14 @@ describe('testing api', () => {
   });
 
   it('calls returns data to me', async () => {
-    fetchMocker.mockResponseOnce(JSON.stringify(cartsData));
+    fetchMocker.mockResponse(JSON.stringify(cartsData));
 
     render(<Home />);
     //ACT
     //EXPEXT
-    setTimeout(() => {
-      expect(screen.getByText(/rick sanchez/i)).toBeInTheDocument();
-      expect(screen.getByText(/adjudicator rick/i)).toBeInTheDocument();
-    }, 500);
+    await screen.findByText(/rick sanchez/i);
+    expect(screen.getByText(/rick sanchez/i)).toBeInTheDocument();
+    expect(screen.getByText(/adjudicator rick/i)).toBeInTheDocument();
   });
 });
 
@@ -34,18 +33,17 @@ describe('testing api card-description', () => {
   });
 
   it('calls returns data to me', async () => {
-    fetchMocker.mockResponseOnce(JSON.stringify(cartsData));
+    fetchMocker.mockResponse(JSON.stringify(cartsData));
 
     render(<Home />);
     //ACT
     const user = userEvent.setup();
-    setTimeout(async () => {
-      await user.click(screen.getByText(/alan rails/i));
-    }, 500);
+    await screen.findByText(/alan rails/i);
+    fetchMocker.mockResponseOnce(JSON.stringify(cartsData.results[9]));
+    await user.click(await screen.findByText(/alan rails/i));
 
     //EXPEXT
-    setTimeout(() => {
-      expect(screen.getByText(/superhuman \(ghost trains summoner\)/i)).toBeInTheDocument();
-    }, 500);
+    await screen.findByText(/superhuman \(ghost trains summoner\)/i);
+    expect(screen.getByText(/superhuman \(ghost trains summoner\)/i)).toBeInTheDocument();
   });
 });
