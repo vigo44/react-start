@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import './search.css';
 
 interface SearchProps {
@@ -6,18 +6,17 @@ interface SearchProps {
 }
 
 function Search(props: SearchProps) {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('value') || '');
+  const [searchValue, setSearchValue] = useState(localStorage.getItem('valueSearchInput') || '');
   const valueRef = useRef<string>(searchValue);
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     valueRef.current = e.target.value;
   };
 
-  useEffect(() => {
-    return () => {
-      localStorage.value = valueRef.current;
-    };
-  }, []);
+  function handlerButton(path: string) {
+    props.onSearch(path);
+    localStorage.valueSearchInput = searchValue;
+  }
 
   return (
     <div className="search">
@@ -25,7 +24,7 @@ function Search(props: SearchProps) {
         <input value={searchValue} onChange={handlerInput} placeholder="Please enter name" />
         <button
           type="button"
-          onClick={props.onSearch.bind(
+          onClick={handlerButton.bind(
             null,
             `https://rickandmortyapi.com/api/character/?name=${searchValue}`
           )}

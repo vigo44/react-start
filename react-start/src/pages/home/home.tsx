@@ -3,9 +3,13 @@ import Cards from '../../components/cards/cards';
 import { useCards } from '../../hooks/cardsHook';
 
 function Home() {
-  const { cardsData, loading, error, prevPage, nextPage, setPath } = useCards(
-    'https://rickandmortyapi.com/api/character'
-  );
+  let path = 'https://rickandmortyapi.com/api/character';
+  if (localStorage.getItem('valueSearchInput') !== null) {
+    path = `https://rickandmortyapi.com/api/character/?name=${localStorage.getItem(
+      'valueSearchInput'
+    )}`;
+  }
+  const { cardsData, loading, error, prevPage, nextPage, setPath } = useCards(path);
   return (
     <div>
       <Search onSearch={setPath} />
