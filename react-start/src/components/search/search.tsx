@@ -18,9 +18,19 @@ function Search(props: SearchProps) {
     localStorage.valueSearchInput = searchValue;
   }
 
+  function handleSubmit(path: string, event: { preventDefault: () => void }) {
+    handlerButton(path);
+    event.preventDefault();
+  }
+
   return (
     <div className="search">
-      <form>
+      <form
+        onSubmit={handleSubmit.bind(
+          null,
+          `https://rickandmortyapi.com/api/character/?name=${searchValue}`
+        )}
+      >
         <input value={searchValue} onChange={handlerInput} placeholder="Please enter name" />
         <button
           type="button"
