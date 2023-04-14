@@ -3,6 +3,8 @@ import Form from '../../components/form/form';
 import CardsUser from '../../components/cards-user/cards-user';
 import ModalWindows from '../../components/modal-window/modal-window';
 import './form-page.css';
+import { addUser } from '../../store/users-slice';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 
 interface UserCard {
   user: string;
@@ -15,12 +17,13 @@ interface UserCard {
 }
 
 function FormPage() {
-  const [cards, setCards] = useState([] as UserCard[]);
+  const cards = useAppSelector((state) => state.users.users);
+  const dispatch = useAppDispatch();
   const [modalOpen, setModal] = useState(false);
   const [clearForm, setClearForm] = useState(false);
 
   const updateCards = (card: UserCard) => {
-    setCards([...cards, card]);
+    dispatch(addUser(card));
     setModal(true);
     setClearForm(false);
   };

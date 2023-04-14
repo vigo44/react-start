@@ -4,10 +4,17 @@ import userEvent from '@testing-library/user-event';
 
 import FormPage from '../form-page/form-page';
 
+import { Provider } from 'react-redux';
+import { store } from '../../store/index';
+
 describe('App', () => {
   it('render App components', async () => {
     //ARRANCE
-    render(<FormPage />);
+    render(
+      <Provider store={store}>
+        <FormPage />
+      </Provider>
+    );
     //ACT
     const user = userEvent.setup();
     await user.click(screen.getByRole('button', { name: /submit/i }));
