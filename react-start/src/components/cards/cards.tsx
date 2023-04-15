@@ -1,23 +1,24 @@
 import Loader from '../loader/loader';
-//import { useCards } from '../../hooks/cardsHook';
 import Card from '../card/card';
 import './cards.css';
 import ErrorMessage from '../error-message/error-mesage';
 import Modal from '../modal/modal';
 import CardDescription from '../card-description/card-discription';
 import { useState } from 'react';
-import { interfaceCharacter } from '../card/card';
+import { useCardsQuery } from '../../store/rick-morty.api';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { setQueryPath } from '../../store/search-input-slice';
 
-interface CardsProps {
-  cardsData: interfaceCharacter[];
-  loading: boolean;
-  error: string;
-  prevPage: string | null;
-  nextPage: string | null;
-  setPath: (val: string) => void;
-}
+function Cards() {
+  const path = useAppSelector((state) => state.serchInput.queryPath);
+  const {
+    isLoading,
+    data = { results: [], info: { prev: null, next: null } },
+    isError,
+    error,
+  } = useCardsQuery(path);
+  const dispatch = useAppDispatch();
 
-function Cards(props: CardsProps) {
   const [modal, setModal] = useState(false);
   const [linkDescription, setLinkDescription] = useState('');
 
@@ -31,37 +32,35 @@ function Cards(props: CardsProps) {
       <div className="wrapper-button">
         <input
           className={
-            'button ' +
-            (props.prevPage == null || props.loading || props.error ? 'button_inactive' : '')
+            'button ' + (data.info.prev == null || isLoading || isError ? 'button_inactive' : '')
           }
           type="button"
           value={'<<'}
           onClick={() => {
-            if (props.prevPage) {
-              props.setPath(props.prevPage);
+            if (data.info.prev) {
+              dispatch(setQueryPath(data.info.prev));
             }
           }}
         />
         <input
           className={
-            'button ' +
-            (props.nextPage == null || props.loading || props.error ? 'button_inactive' : '')
+            'button ' + (data.info.next == null || isLoading || isError ? 'button_inactive' : '')
           }
           type="button"
           value={'>>'}
           onClick={() => {
-            if (props.nextPage) {
-              props.setPath(props.nextPage);
+            if (data.info.next) {
+              dispatch(setQueryPath(data.info.next));
             }
           }}
         />
       </div>
       <div className="wrapper">
-        {props.loading && <Loader />}
-        {props.error && <ErrorMessage error={props.error} />}
-        {!props.error && !props.loading && (
+        {isLoading && <Loader />}
+        {isError && <ErrorMessage error={`${error}`} />}
+        {!isError && !isLoading && (
           <div className="characters">
-            {props.cardsData.map((item) => {
+            {data.results.map((item) => {
               return <Card key={item.id} {...item} onDescription={handlerOnDescription} />;
             })}
           </div>

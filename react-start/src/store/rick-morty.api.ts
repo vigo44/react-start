@@ -37,4 +37,5 @@ export const rickMortyApi = createApi({
   }),
 });
 
-export const { useCardsQuery } = rickMortyApi;
+export const { useCardsQuery, useLazyCardsQuery, useSearchQuery, useLazySearchQuery } =
+  rickMortyApi;

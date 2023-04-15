@@ -1,44 +1,33 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import './search.css';
+import { useAppSelector, useAppDispatch } from '../../hooks/redux';
+import { setSearchInput, setQueryPath } from '../../store/search-input-slice';
 
-interface SearchProps {
-  onSearch: (val: string) => void;
-}
-
-function Search(props: SearchProps) {
-  const [searchValue, setSearchValue] = useState(localStorage.getItem('valueSearchInput') || '');
+function Search() {
+  const searchInput = useAppSelector((state) => state.serchInput.searchInput);
+  const dispatch = useAppDispatch();
+  const [searchValue, setSearchValue] = useState(searchInput);
   const valueRef = useRef<string>(searchValue);
   const handlerInput = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     valueRef.current = e.target.value;
   };
 
-  function handlerButton(path: string) {
-    props.onSearch(path);
-    localStorage.valueSearchInput = searchValue;
+  function handlerButton() {
+    dispatch(setSearchInput(searchValue));
+    dispatch(setQueryPath(`https://rickandmortyapi.com/api/character/?name=${searchValue}`));
   }
 
-  function handleSubmit(path: string, event: { preventDefault: () => void }) {
-    handlerButton(path);
+  function handleSubmit(event: { preventDefault: () => void }) {
+    handlerButton();
     event.preventDefault();
   }
 
   return (
     <div className="search">
-      <form
-        onSubmit={handleSubmit.bind(
-          null,
-          `https://rickandmortyapi.com/api/character/?name=${searchValue}`
-        )}
-      >
+      <form onSubmit={handleSubmit}>
         <input value={searchValue} onChange={handlerInput} placeholder="Please enter name" />
-        <button
-          type="button"
-          onClick={handlerButton.bind(
-            null,
-            `https://rickandmortyapi.com/api/character/?name=${searchValue}`
-          )}
-        >
+        <button type="button" onClick={handlerButton}>
           SEARCH
         </button>
       </form>
