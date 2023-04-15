@@ -1,14 +1,12 @@
 import Loader from '../loader/loader';
-import { useCard } from '../../hooks/cardHook';
 import ErrorMessage from '../error-message/error-mesage';
 import './card-description.css';
+import { useAppSelector } from '../../hooks/redux';
+import { useCardQuery } from '../../store/rick-morty.api';
 
-interface CardDescriptionProps {
-  link: string;
-}
-
-export default function CardDescription(props: CardDescriptionProps) {
-  const { cardData, loading, error } = useCard(props.link);
+export default function CardDescription() {
+  const id = useAppSelector((state) => state.idDescription.idDescription);
+  const { isLoading, data: cardData, isError, error } = useCardQuery(id);
 
   const charAlive =
     cardData?.status == 'Alive'
@@ -19,9 +17,9 @@ export default function CardDescription(props: CardDescriptionProps) {
   const discriptionStatusClasses = ['discription__status', charAlive];
   return (
     <>
-      {loading && <Loader />}
-      {error && <ErrorMessage error={error} />}
-      {!error && !loading && (
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage error={error} />}
+      {!isError && !isLoading && (
         <>
           <div className="discription">
             <div className="discription__wrapper">

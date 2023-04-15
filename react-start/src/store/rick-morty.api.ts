@@ -27,15 +27,7 @@ export const rickMortyApi = createApi({
         url: `https://rickandmortyapi.com/api/character/${id}`,
       }),
     }),
-    search: build.query<interfaceCharacter, string>({
-      query: (name) => ({
-        url: name.trim()
-          ? `https://rickandmortyapi.com/api/character/?name=${name}`
-          : `https://rickandmortyapi.com/api/character`,
-      }),
-    }),
   }),
 });
 
-export const { useCardsQuery, useLazyCardsQuery, useSearchQuery, useLazySearchQuery } =
-  rickMortyApi;
+export const { useCardsQuery, useCardQuery } = rickMortyApi;

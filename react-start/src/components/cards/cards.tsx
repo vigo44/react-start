@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useCardsQuery } from '../../store/rick-morty.api';
 import { useAppSelector, useAppDispatch } from '../../hooks/redux';
 import { setQueryPath } from '../../store/search-input-slice';
+import { setIdDescription } from '../../store/description-slice';
 
 function Cards() {
   const path = useAppSelector((state) => state.serchInput.queryPath);
@@ -20,11 +21,10 @@ function Cards() {
   const dispatch = useAppDispatch();
 
   const [modal, setModal] = useState(false);
-  const [linkDescription, setLinkDescription] = useState('');
 
   function handlerOnDescription(id: string) {
     setModal(true);
-    setLinkDescription(`https://rickandmortyapi.com/api/character/${id}`);
+    dispatch(setIdDescription(id));
   }
 
   return (
@@ -58,7 +58,6 @@ function Cards() {
       <div className="wrapper">
         {isLoading && <Loader />}
         {isError && <ErrorMessage error={error} />}
-        {/* {isError && console.log(error)} */}
         {!isError && !isLoading && (
           <div className="characters">
             {data.results.map((item) => {
@@ -73,7 +72,7 @@ function Cards() {
             setModal(false);
           }}
         >
-          <CardDescription link={linkDescription} />
+          <CardDescription />
         </Modal>
       )}
     </>
