@@ -11,6 +11,8 @@ import cardsData from './assets/data/card-data';
 import Card from './components/card/card';
 import Cards from './components/cards/cards';
 import Search from './components/search/search';
+import { Provider } from 'react-redux';
+import { store } from '../../store/index';
 
 describe('App', () => {
   it('render App components', () => {
@@ -59,14 +61,9 @@ describe('Cards tests', function () {
   it('should render Cards', () => {
     //ARRANCE
     render(
-      <Cards
-        cardsData={cardsData.results}
-        loading={false}
-        error={''}
-        prevPage={''}
-        nextPage={''}
-        setPath={() => {}}
-      />
+      <Provider store={store}>
+        <Cards />
+      </Provider>
     );
     //ACT
     //EXPEXT
