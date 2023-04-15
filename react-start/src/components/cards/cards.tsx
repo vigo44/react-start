@@ -57,7 +57,8 @@ function Cards() {
       </div>
       <div className="wrapper">
         {isLoading && <Loader />}
-        {isError && <ErrorMessage error={`${error}`} />}
+        {isError && <ErrorMessage error={error} />}
+        {/* {isError && console.log(error)} */}
         {!isError && !isLoading && (
           <div className="characters">
             {data.results.map((item) => {
