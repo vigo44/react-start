@@ -4,6 +4,8 @@ import cartsData from '../../assets/data/card-data';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Home from './home';
+import { Provider } from 'react-redux';
+import { store } from '../../store/index';
 
 const fetchMocker = createFetchMock(vi);
 fetchMocker.enableMocks();
@@ -17,7 +19,11 @@ describe('testing api', () => {
   it('calls returns data to me', async () => {
     fetchMocker.mockResponse(JSON.stringify(cartsData));
 
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     //ACT
     //EXPEXT
     await screen.findByText(/rick sanchez/i);
@@ -35,7 +41,11 @@ describe('testing api card-description', () => {
   it('calls returns data to me', async () => {
     fetchMocker.mockResponse(JSON.stringify(cartsData));
 
-    render(<Home />);
+    render(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    );
     //ACT
     const user = userEvent.setup();
     await screen.findByText(/alan rails/i);
