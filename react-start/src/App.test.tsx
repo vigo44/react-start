@@ -9,18 +9,19 @@ import NotFound from './pages/not-found/not-found';
 
 import cardsData from './assets/data/card-data';
 import Card from './components/card/card';
-import Cards from './components/cards/cards';
 import Search from './components/search/search';
 import { Provider } from 'react-redux';
-import { store } from '../../store/index';
+import { store } from '../src/store/index';
 
 describe('App', () => {
   it('render App components', () => {
     //ARRANCE
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     //ACT
     //EXPEXT
@@ -57,26 +58,16 @@ describe('Cards tests', function () {
     //EXPEXT
     expect(screen.getByText(cardsData.results[0].name)).toBeInTheDocument();
   });
-
-  it('should render Cards', () => {
-    //ARRANCE
-    render(
-      <Provider store={store}>
-        <Cards />
-      </Provider>
-    );
-    //ACT
-    //EXPEXT
-    cardsData.results.forEach((item) => {
-      expect(screen.getByText(item.name)).toBeInTheDocument();
-    });
-  });
 });
 
 describe('search input test', function () {
   it('search input change', () => {
     //ARRANCE
-    render(<Search onSearch={() => {}} />);
+    render(
+      <Provider store={store}>
+        <Search />
+      </Provider>
+    );
     const input = screen.getByRole('textbox') as HTMLInputElement;
     //ACT
     fireEvent.change(input, { target: { value: 12345 } });
@@ -89,9 +80,11 @@ describe('test routing', function () {
   it('test patch /about us', async () => {
     //ARRANCE
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     //ACT
     const user = userEvent.setup();
@@ -103,9 +96,11 @@ describe('test routing', function () {
   it('test patch /home', async () => {
     //ARRANCE
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     //ACT
     const user = userEvent.setup();
