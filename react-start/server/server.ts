@@ -21,19 +21,26 @@ app.use('*', async (req, res) => {
   const templateStr = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8');
 
   try {
-    const template = await vite.transformIndexHtml(url, templateStr);
     const { render } = await vite.ssrLoadModule('/src/entry-server.tsx');
+    const template = await vite.transformIndexHtml(url, templateStr);
+    const html = template.split('<!--ssr-app-->');
+
     const { pipe } = await render(url, {
       onShellReady() {
         res.statusCode = 200;
         res.setHeader('content-type', 'text/html');
-        res.write(template);
+        res.write(html[0]);
         pipe(res);
       },
       onShellError() {
         res.statusCode = 500;
         res.setHeader('content-type', 'text/html');
         res.send('<h1>Something went wrong</h1>');
+      },
+
+      onAllReady() {
+        res.write(html[1]);
+        res.end();
       },
 
       onError(err: Error) {
@@ -47,6 +54,8 @@ app.use('*', async (req, res) => {
     res.status(500).end(error.stack);
   }
 });
+
+app.use(express.static(path.resolve(__dirname, './')));
 
 app.listen(PORT, () => {
   console.log(`start server http://localhost:${PORT}`);
