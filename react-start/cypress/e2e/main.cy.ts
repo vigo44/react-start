@@ -4,6 +4,8 @@ describe('Test main page', () => {
     cy.get('input').should('have.value', '');
     cy.get('button').should('have.text', 'SEARCH');
     cy.get('.character').should('have.length', 20);
+    cy.get('input[value=">>"]').click();
+    cy.get('input[value="<<"]').click();
   });
 
   it('Should open and close description', () => {
@@ -17,7 +19,7 @@ describe('Test main page', () => {
   it('Should search', () => {
     cy.visit('/');
     cy.get('input').eq(0).type('Cat Monster').should('have.value', 'Cat Monster');
-    cy.get('button').click();
+    cy.get('form').submit();
     cy.get('.character__title').should('have.text', 'Giant Cat Monster');
     cy.get('.header__link').contains('Form').click();
     cy.get('.header__link').contains('Home').click();
